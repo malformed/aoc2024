@@ -1,4 +1,5 @@
 use std::io::BufRead;
+use std::io::Read;
 
 use crate::error::{Error, Result};
 
@@ -23,5 +24,11 @@ impl Input {
             Err(_) => None,
             _ => Some(line),
         }
+    }
+
+    pub fn read_all(&mut self) -> String {
+        let mut buffer = String::new();
+        self.reader.read_to_string(&mut buffer).unwrap();
+        buffer
     }
 }

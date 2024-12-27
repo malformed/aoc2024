@@ -1,24 +1,22 @@
 use crate::day;
-use crate::error::{Error, Result};
+use crate::error::Result;
 use crate::input::Input;
 
 use log::info;
 
 use std::io;
 
-pub fn run(mut input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
-    let line = input.read_line().ok_or(Error::InvalidInput)?;
-
+#[allow(unreachable_code, unused_variables, unused_mut)]
+pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
     match part {
         day::Part::One => {
-            writeln!(output, "{}", line.len())?;
+            todo!();
         }
         day::Part::Two => {
-            writeln!(output, "{}", 2 * line.len())?;
+            todo!();
         }
     }
 
-    info!("Day #{} done", 0);
-
+    info!("Day done ✅");
     Ok(())
 }
