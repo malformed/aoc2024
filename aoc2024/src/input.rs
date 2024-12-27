@@ -31,4 +31,12 @@ impl Input {
         self.reader.read_to_string(&mut buffer).unwrap();
         buffer
     }
+
+    pub fn read_line_as_bytes_into(&mut self, buffer: &mut Vec<u8>) -> Option<()> {
+        match self.reader.read_until(b'\n', buffer) {
+            Ok(0) => None,
+            Err(_) => None,
+            _ => Some(()),
+        }
+    }
 }
