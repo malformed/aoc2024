@@ -9,7 +9,7 @@ use crate::{day, day_tests};
 type Node = u16;
 
 struct Network {
-    edges: HashMap<Node, Vec<Node>>, // adjacency map
+    edges: HashMap<Node, Vec<Node>>, // adjacency list
     matrix: Grid<bool>,              // incidence matrix for quick edges lookup
 }
 

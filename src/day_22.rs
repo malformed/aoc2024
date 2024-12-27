@@ -17,46 +17,27 @@ impl SecretGenerator {
         }
     }
 
-    fn next_bare(mut value: u64) -> u64 {
+    fn next_bare(&self, mut value: u64) -> u64 {
         let mut tmp = value * 64; // shift left by 6
-        tmp = value ^ tmp; // XOR
-        let new_secret = tmp % 16777216;
+        tmp = value ^ tmp;
+        let new_secret = tmp % self.modulo;
         value = new_secret;
-
-        // println!("{} -> {}", value, new_secret);
 
         tmp = value / 32;
         tmp = value ^ tmp;
-        let next_secret = tmp % 16777216;
+        let next_secret = tmp % self.modulo;
         value = next_secret;
-
-        // println!("{} -> {}", new_secret, next_secret);
 
         tmp = value * 2048;
         tmp = value ^ tmp;
-        let final_secret = tmp % 16777216;
+        let final_secret = tmp % self.modulo;
         value = final_secret;
-
-        // println!("{} -> {}", next_secret, final_secret);
 
         value
     }
 
-    fn next_advanced(value: u64) -> u64 {
-        (value * 48271) % 2147483647
-    }
-
     fn next(&mut self) -> u64 {
-        let n1 = Self::next_bare(self.value);
-        /*
-        let n2 = Self::next_advanced(self.value);
-        if n1 == n2 {
-            self.value = n1;
-        } else {
-            panic!("next secret mismatch");
-        }
-        */
-        self.value = n1;
+        self.value = self.next_bare(self.value);
         self.value
     }
 
@@ -67,8 +48,6 @@ impl SecretGenerator {
         self.value
     }
 }
-
-type Secrets = Vec<u64>;
 
 // TODO: make this works with references .. or rather play with referencing internal data in a type
 type SellPricesMap = HashMap<[i8; 4], i8>; // sell price diff windows of size 4 -> sell prices
@@ -169,7 +148,6 @@ impl MonkeyStockExchange {
         let mut checked_seq_cache = HashSet::new();
 
         for (_i, broker) in self.brokers.iter().enumerate() {
-            // println!("broker {}/{}", i, self.brokers.len());
             for seq in broker.sell_prices.keys() {
                 if !checked_seq_cache.insert(*seq) {
                     continue;

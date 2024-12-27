@@ -1,34 +1,4 @@
-mod day;
-mod error;
-mod input;
-mod util;
-
-mod day_0;
-mod day_1;
-mod day_10;
-mod day_11;
-mod day_12;
-mod day_13;
-mod day_14;
-mod day_15;
-mod day_16;
-mod day_17;
-mod day_18;
-mod day_19;
-mod day_2;
-mod day_20;
-mod day_21;
-mod day_22;
-mod day_23;
-mod day_24;
-mod day_25;
-mod day_3;
-mod day_4;
-mod day_5;
-mod day_6;
-mod day_7;
-mod day_8;
-mod day_9;
+use aoc2024::*;
 
 use crate::error::{ArgumentError, Error, Result};
 use crate::input::Input;
@@ -60,6 +30,7 @@ fn run(day: u8, part: day::Part, input_file: Option<String>) -> Result<()> {
         12 => day_12::run(input, part),
         13 => day_13::run(input, part),
         14 => day_14::run(input, part),
+        15 => day_15::run(input, part),
         16 => day_16::run(input, part),
         17 => day_17::run(input, part),
         18 => day_18::run(input, part),

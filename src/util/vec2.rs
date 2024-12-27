@@ -187,5 +187,3 @@ where
         self.x == x && self.y == y
     }
 }
-
-pub type Pos = Vec2;
