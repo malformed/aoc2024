@@ -5,14 +5,14 @@ use crate::{day, day_tests};
 use std::collections::HashSet;
 
 // Generates subsets of size of a set with length n
-struct SubsetGenerator {
+pub struct SubsetGenerator {
     m: usize,
     n: usize,
     indices: Vec<usize>, // subset indices to the set we choose from
 }
 
 impl SubsetGenerator {
-    fn new(m: u8, n: usize) -> Self {
+    pub fn new(m: u8, n: usize) -> Self {
         let mut indices = (0..m as usize).collect::<Vec<usize>>();
 
         indices.last_mut().map(|x| *x -= 1); // this is a trick so that first call to next yields the initial configuration
@@ -24,7 +24,7 @@ impl SubsetGenerator {
         }
     }
 
-    fn next(&mut self) -> Option<&[usize]> {
+    pub fn next(&mut self) -> Option<&[usize]> {
         // indices ...[a, b, c, ...] pointers to the original set,
 
         // 1) find index such that it can be incremented

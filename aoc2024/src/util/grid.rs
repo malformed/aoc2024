@@ -22,6 +22,21 @@ impl<T> Grid<T> {
         }
     }
 
+    pub fn with_size<S>(width: S, height: S, default: T) -> Self
+    where
+        T: Clone,
+        S: Into<usize>,
+    {
+        let width = width.into();
+        let height = height.into();
+
+        let data = vec![vec![default; width]; height];
+        Self {
+            data,
+            dims: Vec2::from((width, height)),
+        }
+    }
+
     pub fn dims(&self) -> Vec2 {
         self.dims
     }
@@ -50,6 +65,32 @@ impl<T> std::ops::Index<Vec2> for Grid<T> {
 impl<T> std::ops::IndexMut<Vec2> for Grid<T> {
     fn index_mut(&mut self, pos: Vec2) -> &mut Self::Output {
         &mut self.data[pos.y as usize][pos.x as usize]
+    }
+}
+
+impl<T, I> std::ops::Index<(I, I)> for Grid<T>
+where
+    I: Into<usize>,
+{
+    type Output = T;
+
+    fn index(&self, pos: (I, I)) -> &Self::Output {
+        let x = pos.0.into();
+        let y = pos.1.into();
+
+        &self.data[y][x]
+    }
+}
+
+impl<T, I> std::ops::IndexMut<(I, I)> for Grid<T>
+where
+    I: Into<usize>,
+{
+    fn index_mut(&mut self, pos: (I, I)) -> &mut Self::Output {
+        let x = pos.0.into();
+        let y = pos.1.into();
+
+        &mut self.data[y][x]
     }
 }
 
