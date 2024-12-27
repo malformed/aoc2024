@@ -2,8 +2,8 @@ pub mod math;
 
 pub use args::*;
 pub use dims::*;
-pub use pos::*;
+pub use vec2::*;
 
 mod args;
 mod dims;
-mod pos;
+mod vec2;

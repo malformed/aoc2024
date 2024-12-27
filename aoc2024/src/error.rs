@@ -12,6 +12,9 @@ pub enum Error {
     #[error("Invalid input")]
     InvalidInput(),
 
+    #[error("No solution: {0}")]
+    NoSolution(String),
+
     // derived errors
     #[error("I/O error: {0}")]
     StdIo(#[from] std::io::Error),

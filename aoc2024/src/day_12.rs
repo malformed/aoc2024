@@ -3,7 +3,7 @@ use std::fmt::{self};
 
 use crate::error::Result;
 use crate::input::Input;
-use crate::util::{Dims, Pos};
+use crate::util::{Dims, Vec2};
 use crate::{day, day_tests};
 
 #[allow(unused_imports)]
@@ -19,28 +19,28 @@ enum FenceSide {
 
 #[derive(Clone, Hash, Eq, PartialEq)]
 struct FencePiece {
-    pos: Pos,
+    pos: Vec2,
     side: FenceSide,
 }
 
 impl FencePiece {
-    fn new(pos: Pos, side: FenceSide) -> Self {
+    fn new(pos: Vec2, side: FenceSide) -> Self {
         Self { pos, side }
     }
 
-    fn left(pos: Pos) -> Self {
+    fn left(pos: Vec2) -> Self {
         Self::new(pos, FenceSide::Left)
     }
 
-    fn right(pos: Pos) -> Self {
+    fn right(pos: Vec2) -> Self {
         Self::new(pos, FenceSide::Right)
     }
 
-    fn top(pos: Pos) -> Self {
+    fn top(pos: Vec2) -> Self {
         Self::new(pos, FenceSide::Top)
     }
 
-    fn bottom(pos: Pos) -> Self {
+    fn bottom(pos: Vec2) -> Self {
         Self::new(pos, FenceSide::Bottom)
     }
 }
@@ -121,11 +121,11 @@ impl GardenGroups {
         vec![vec![0; width]; height]
     }
 
-    fn at(&self, pos: Pos) -> u8 {
+    fn at(&self, pos: Vec2) -> u8 {
         self.data[pos]
     }
 
-    fn num_fences_at_pos(garden: &GardenData, pos: Pos) -> usize {
+    fn num_fences_at_pos(garden: &GardenData, pos: Vec2) -> usize {
         let label = garden[pos];
         let fances = pos
             .neighbours()
@@ -152,7 +152,7 @@ impl GardenGroups {
 
     // techincally this is not a flood fill but plain old DFS... but hey, it started as with a
     // queue
-    fn flood_fill_from(&self, pos: Pos, visited: &mut Vec<Vec<u8>>, mut func: impl FnMut(&Pos)) {
+    fn flood_fill_from(&self, pos: Vec2, visited: &mut Vec<Vec<u8>>, mut func: impl FnMut(&Vec2)) {
         let label = self.at(pos);
         let mut exploring = vec![pos];
 
@@ -174,7 +174,7 @@ impl GardenGroups {
         }
     }
 
-    fn area_price(&self, pos: Pos, visited: &mut Vec<Vec<u8>>) -> usize {
+    fn area_price(&self, pos: Vec2, visited: &mut Vec<Vec<u8>>) -> usize {
         let mut area = 0;
         let mut fences = 0;
 
@@ -203,7 +203,7 @@ impl GardenGroups {
         total_price
     }
 
-    fn fences_at_pos(&self, pos: Pos, fences: &mut FencePieces) {
+    fn fences_at_pos(&self, pos: Vec2, fences: &mut FencePieces) {
         let label = self.at(pos);
 
         for neighbour in pos.neighbours() {
@@ -231,7 +231,7 @@ impl GardenGroups {
         }
     }
 
-    fn fences_in_region(&self, pos: Pos, visited: &mut Vec<Vec<u8>>) -> (usize, FencePieces) {
+    fn fences_in_region(&self, pos: Vec2, visited: &mut Vec<Vec<u8>>) -> (usize, FencePieces) {
         let mut fences = Vec::new();
         let mut area = 0;
 

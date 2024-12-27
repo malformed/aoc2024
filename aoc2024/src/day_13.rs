@@ -64,6 +64,8 @@ impl std::iter::Iterator for ClawMachinesReader {
         let button_b = self.read_vec2(true).expect("B button input");
         let prize = self.read_vec2(false).expect("prize input");
 
+        println!("A: {:?}, B: {:?}, P: {:?}", button_a, button_b, prize);
+
         self.eof = self.input.read_line().is_none(); // consume the empty line and mark the end
 
         Some(ClawMachine {
