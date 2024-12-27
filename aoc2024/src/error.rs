@@ -9,6 +9,9 @@ pub enum Error {
     #[error("Input file not found: {0}")]
     InputFileNotFound(String),
 
+    #[error("Invalid input")]
+    InvalidInput(),
+
     // derived errors
     #[error("I/O error: {0}")]
     StdIo(#[from] std::io::Error),
