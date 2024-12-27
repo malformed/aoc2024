@@ -85,8 +85,8 @@ impl Display for Tile {
             Tile::Empty => write!(f, " "),
             Tile::Wall => write!(f, "▓"),
             Tile::Box(_) => write!(f, "☐"),
-            Tile::LargeBoxL(_) => write!(f, "░"),
-            Tile::LargeBoxR(_) => write!(f, "░"),
+            Tile::LargeBoxL(_) => write!(f, "╟"),
+            Tile::LargeBoxR(_) => write!(f, "╢"),
         }
     }
 }
@@ -114,8 +114,8 @@ struct WarehouseInputReader {
     input: Input,
 }
 impl WarehouseInputReader {
-    fn new(input: Input) -> WarehouseInputReader {
-        WarehouseInputReader { input }
+    fn new(input: Input) -> Self {
+        Self { input }
     }
 
     fn read_map(&mut self) -> (Vec2, Map) {
@@ -404,7 +404,7 @@ pub fn run(input: Input, part: day::Part) -> Result<i64> {
         day::Part::One => warehouse.replay_moves(false),
         day::Part::Two => {
             let mut warehouse = warehouse.inflate();
-            warehouse.replay_moves(false)
+            warehouse.replay_moves(true)
         }
     } as i64;
 
