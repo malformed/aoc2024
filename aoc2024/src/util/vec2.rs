@@ -13,6 +13,15 @@ impl Vec2 {
         Vec2::new(self.x.abs(), self.y.abs())
     }
 
+    pub fn try_add(&self, other: &Vec2, bounds: &Vec2) -> Option<Vec2> {
+        let res = *self + other;
+        if res.inside(bounds) {
+            Some(res)
+        } else {
+            None
+        }
+    }
+
     pub fn wrapping_add_mut(&mut self, other: &Vec2, bounds: &Vec2) {
         *self = &(*self + other) % bounds;
     }
@@ -25,6 +34,10 @@ impl Vec2 {
             *self + (-1, 0),
             *self + (1, 0),
         ]
+    }
+
+    pub fn inside(&self, bounds: &Vec2) -> bool {
+        self.x >= 0 && self.y >= 0 && self.x < bounds.x && self.y < bounds.y
     }
 }
 
