@@ -20,6 +20,7 @@ mod day_20;
 mod day_21;
 mod day_22;
 mod day_23;
+mod day_24;
 mod day_3;
 mod day_4;
 mod day_5;
@@ -66,6 +67,7 @@ fn run(day: u8, part: day::Part, input_file: Option<String>) -> Result<()> {
         21 => day_21::run(input, part),
         22 => day_22::run(input, part),
         23 => day_23::run(input, part),
+        24 => day_24::run(input, part),
         _ => Err(Error::DayNotImplemented(day)),
     }?;
     println!("{}", result);
