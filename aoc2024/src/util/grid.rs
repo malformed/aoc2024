@@ -1,5 +1,6 @@
 use super::Vec2;
 
+#[derive(Debug)]
 pub struct Grid<T> {
     data: Vec<Vec<T>>,
     dims: Vec2,
@@ -83,5 +84,20 @@ impl<'a, T> Iterator for GridIter<'a, T> {
         }
 
         Some((pos, &self.grid[pos]))
+    }
+}
+
+// mut iterator
+pub struct GridIterMut<'a, T> {
+    grid: &'a mut Grid<T>,
+    pos: Vec2,
+}
+
+impl<'a, T> GridIterMut<'a, T> {
+    pub fn new(grid: &'a mut Grid<T>) -> Self {
+        Self {
+            grid,
+            pos: Vec2::default(),
+        }
     }
 }
