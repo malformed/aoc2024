@@ -2,7 +2,7 @@ use crate::day;
 use crate::error::ArgumentError;
 
 pub fn validate_day(day: u8) -> Result<u8, ArgumentError> {
-    if day > 24 {
+    if day > 25 {
         Err(ArgumentError::InvalidDay(day))?
     } else {
         Ok(day)
