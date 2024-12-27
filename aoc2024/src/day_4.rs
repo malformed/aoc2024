@@ -1,10 +1,8 @@
-use crate::day;
 use crate::error::Result;
 use crate::input::Input;
+use crate::{day, day_tests};
 
 use log::info;
-
-use std::io;
 
 #[derive(Clone, Copy)]
 struct Dims {
@@ -324,15 +322,16 @@ impl XmasWords {
     }
 }
 
-pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
+pub fn run(input: Input, part: day::Part) -> Result<i64> {
     let station = XmasWords::new(input);
 
     let result = match part {
         day::Part::One => station.find_xmas(),
         day::Part::Two => station.find_x_mas(),
-    };
-    writeln!(output, "{}", result)?;
+    } as i64;
 
     info!("Day done ✅");
-    Ok(())
+    Ok(result)
 }
+
+day_tests!("day_4-1.dat", 2618, 2011);

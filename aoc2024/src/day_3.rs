@@ -1,10 +1,9 @@
-use crate::day;
 use crate::error::Result;
 use crate::input::Input;
+use crate::{day, day_tests};
 
 use log::info;
 
-use std::io;
 use std::iter::Peekable;
 
 #[derive(Debug, PartialEq)]
@@ -212,7 +211,7 @@ impl ComputerMemory {
     }
 }
 
-pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
+pub fn run(input: Input, part: day::Part) -> Result<i64> {
     let memory = ComputerMemory::new(input);
 
     let result = match part {
@@ -220,8 +219,9 @@ pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<
         day::Part::Two => memory.eval(true),
     };
 
-    writeln!(output, "{}", result)?;
-
     info!("Day done ✅");
-    Ok(())
+
+    Ok(result)
 }
+
+day_tests!("day_3-1.dat", 173731097, 93729253);

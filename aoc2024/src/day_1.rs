@@ -1,11 +1,8 @@
-use crate::day;
 use crate::error::Result;
 use crate::input::Input;
-
-use log::info;
+use crate::{day, day_tests};
 
 use std::collections::BTreeMap;
-use std::io;
 
 struct InputReader {
     input: Input,
@@ -100,18 +97,15 @@ impl Locations {
     }
 }
 
-pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
+pub fn run(input: Input, part: day::Part) -> Result<i64> {
     let locations = Locations::new(input);
 
-    match part {
-        day::Part::One => {
-            writeln!(output, "{}", locations.lists_distance())?;
-        }
-        day::Part::Two => {
-            writeln!(output, "{}", locations.similarity_score())?;
-        }
-    }
+    let result = match part {
+        day::Part::One => locations.lists_distance(),
+        day::Part::Two => locations.similarity_score(),
+    };
 
-    info!("Day done ✅");
-    Ok(())
+    Ok(result)
 }
+
+day_tests!("day_1-1.dat", 1938424, 22014209);

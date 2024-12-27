@@ -1,10 +1,9 @@
-use crate::day;
 use crate::error::Result;
 use crate::input::Input;
+use crate::{day, day_tests};
 
 use log::info;
 
-use std::io;
 use std::iter::Peekable;
 
 struct InputReader {
@@ -182,22 +181,17 @@ impl UnusualData {
 }
 
 #[allow(unreachable_code, unused_variables, unused_mut)]
-pub fn run(mut input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
+pub fn run(mut input: Input, part: day::Part) -> Result<i64> {
     let data = UnusualData::new(input);
 
-    match part {
-        day::Part::One => {
-            writeln!(output, "{}", data.count_valid_records())?;
-        }
-        day::Part::Two => {
-            writeln!(
-                output,
-                "{}",
-                data.count_valid_records_with_fault_tolerance()
-            )?;
-        }
-    }
+    let result = match part {
+        day::Part::One => data.count_valid_records(),
+        day::Part::Two => data.count_valid_records_with_fault_tolerance(),
+    } as i64;
 
     info!("Day done ✅");
-    Ok(())
+
+    Ok(result)
 }
+
+day_tests!("day_2-1.dat", 534, 577);

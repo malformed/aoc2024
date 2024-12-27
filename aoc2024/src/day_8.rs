@@ -1,11 +1,8 @@
-use crate::day;
 use crate::error::Result;
 use crate::input::Input;
-
-use log::info;
+use crate::{day, day_tests};
 
 use std::collections::HashSet;
-use std::io;
 
 // Generates subsets of size of a set with length n
 struct SubsetGenerator {
@@ -244,16 +241,15 @@ impl CityAntennaMap {
 }
 
 #[allow(unreachable_code, unused_variables, unused_mut)]
-pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
+pub fn run(input: Input, part: day::Part) -> Result<i64> {
     let city_antenna_map = CityAntennaMap::new(input);
 
     let result = match part {
         day::Part::One => city_antenna_map.find_adjecent_antinodes(),
         day::Part::Two => city_antenna_map.find_all_antinodes(),
-    };
+    } as i64;
 
-    writeln!(output, "= {result}")?;
-
-    info!("Day done ✅");
-    Ok(())
+    Ok(result)
 }
+
+day_tests!("day_8-1.dat", 249, 905);

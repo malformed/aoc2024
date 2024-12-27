@@ -1,12 +1,9 @@
-use crate::day;
 use crate::error::Result;
 use crate::input::Input;
-
-use log::info;
+use crate::{day, day_tests};
 
 use std::collections::HashSet;
 use std::fmt::{self, Display};
-use std::io;
 
 type Map = Vec<Vec<u8>>;
 
@@ -364,7 +361,7 @@ impl<'a> Iterator for GuardWalkIterator<'a> {
     }
 }
 
-pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
+pub fn run(input: Input, part: day::Part) -> Result<i64> {
     let lab_map = LabMap::new(input)?;
 
     let result = match part {
@@ -373,11 +370,9 @@ pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<
             // lab_map.count_walls_to_cycle_guard_simple();
             lab_map.find_walls_to_cycle_guard()
         }
-    };
+    } as i64;
 
-    writeln!(output, "= {}", result)?;
-
-    info!("Day done ✅");
-
-    Ok(())
+    Ok(result)
 }
+
+day_tests!("day_6-1.dat", 5531, 2165);

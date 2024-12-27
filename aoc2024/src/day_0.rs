@@ -2,21 +2,18 @@ use crate::day;
 use crate::error::Result;
 use crate::input::Input;
 
-use log::info;
-
-use std::io;
-
-#[allow(unreachable_code, unused_variables, unused_mut)]
-pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
-    match part {
+#[allow(unreachable_code, unused_variables)]
+pub fn run(input: Input, part: day::Part) -> Result<i64> {
+    let result = match part {
         day::Part::One => {
             todo!();
+            0
         }
         day::Part::Two => {
             todo!();
+            0
         }
-    }
+    } as i64;
 
-    info!("Day done ✅");
-    Ok(())
+    Ok(result)
 }

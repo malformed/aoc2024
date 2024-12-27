@@ -18,26 +18,32 @@ use crate::input::Input;
 use crate::util::{construct_filename, parse_day, parse_part, validate_day, validate_part};
 
 use env_logger;
+use log::info;
 use std::env;
 
 fn run(day: u8, part: day::Part, input_file: Option<String>) -> Result<()> {
     let input = Input::from_file(&input_file.unwrap_or_else(|| construct_filename(day, part)))
         .or_else(|_| Input::from_file(&"/dev/stdin"))?;
 
-    let output = std::io::stdout();
+    info!("Day {day}|{part} 🎄");
 
-    match day {
-        0 => day_0::run(input, output, part),
-        1 => day_1::run(input, output, part),
-        2 => day_2::run(input, output, part),
-        3 => day_3::run(input, output, part),
-        4 => day_4::run(input, output, part),
-        5 => day_5::run(input, output, part),
-        6 => day_6::run(input, output, part),
-        7 => day_7::run(input, output, part),
-        8 => day_8::run(input, output, part),
+    let result = match day {
+        0 => day_0::run(input, part),
+        1 => day_1::run(input, part),
+        2 => day_2::run(input, part),
+        3 => day_3::run(input, part),
+        4 => day_4::run(input, part),
+        5 => day_5::run(input, part),
+        6 => day_6::run(input, part),
+        7 => day_7::run(input, part),
+        8 => day_8::run(input, part),
         _ => Err(Error::DayNotImplemented(day)),
-    }
+    }?;
+    println!("{}", result);
+
+    info!("Day {day}|{part} done 🌟");
+
+    Ok(())
 }
 
 fn main() -> Result<()> {

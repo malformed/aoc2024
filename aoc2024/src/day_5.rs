@@ -1,11 +1,8 @@
-use crate::day;
 use crate::error::{Error, Result};
 use crate::input::Input;
-
-use log::info;
+use crate::{day, day_tests};
 
 use std::borrow::Cow;
-use std::io;
 use std::num::ParseIntError;
 
 type Rules = Vec<Vec<u8>>;
@@ -102,16 +99,15 @@ impl PrintIntstructions {
     }
 }
 
-pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
+pub fn run(input: Input, part: day::Part) -> Result<i64> {
     let instructions = PrintIntstructions::new(input)?;
 
     let result = match part {
         day::Part::One => instructions.valid_pages_metric(),
         day::Part::Two => instructions.fixed_invalid_pages_metric(),
-    };
+    } as i64;
 
-    writeln!(output, "= {}", result)?;
-
-    info!("Day done ✅");
-    Ok(())
+    Ok(result)
 }
+
+day_tests!("day_5-1.dat", 5275, 6191);

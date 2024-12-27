@@ -1,9 +1,6 @@
-use crate::day;
 use crate::error::Result;
 use crate::input::Input;
-
-use log::info;
-use std::io;
+use crate::{day, day_tests};
 
 /**
  * Generates sequences of numbers from 0 to m-1 of length n
@@ -191,7 +188,7 @@ impl RopeBridgeCalculations {
     }
 }
 
-pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<()> {
+pub fn run(input: Input, part: day::Part) -> Result<i64> {
     let bridge_calcs = RopeBridgeCalculations::new(input);
 
     let result = match part {
@@ -199,8 +196,7 @@ pub fn run(input: Input, mut output: impl io::Write, part: day::Part) -> Result<
         day::Part::Two => bridge_calcs.find_solvable_with_concat_eqs_sum(),
     };
 
-    writeln!(output, "{}", result)?;
-
-    info!("Day done ✅");
-    Ok(())
+    Ok(result)
 }
+
+day_tests!("day_7-1.dat", 1298300076754, 248427118972289);
