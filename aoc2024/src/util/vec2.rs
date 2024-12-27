@@ -114,7 +114,23 @@ impl std::ops::Add<(i64, i64)> for Vec2 {
     }
 }
 
+impl std::ops::Add<Vec2> for Vec2 {
+    type Output = Vec2;
+
+    fn add(self, other: Vec2) -> Vec2 {
+        &self + &other
+    }
+}
+
 impl std::ops::Add<&Vec2> for Vec2 {
+    type Output = Vec2;
+
+    fn add(self, other: &Vec2) -> Vec2 {
+        &self + other
+    }
+}
+
+impl std::ops::Add<&Vec2> for &Vec2 {
     type Output = Vec2;
 
     fn add(self, other: &Vec2) -> Vec2 {
