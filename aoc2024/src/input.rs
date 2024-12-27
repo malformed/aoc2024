@@ -39,4 +39,10 @@ impl Input {
             _ => Some(()),
         }
     }
+
+    pub fn read_line_as_bytes(&mut self) -> Option<Vec<u8>> {
+        let mut buffer = Vec::new();
+        self.read_line_as_bytes_into(&mut buffer)?;
+        Some(buffer)
+    }
 }
