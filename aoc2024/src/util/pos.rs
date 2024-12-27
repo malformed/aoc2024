@@ -9,16 +9,6 @@ impl Pos {
         Self { x, y }
     }
 
-    pub fn from_tuple(t: (i64, i64)) -> Self {
-        Self { x: t.0, y: t.1 }
-    }
-
-    /*
-    pub fn as_indices(self) -> (usize, usize) {
-        (self.x as usize, self.y as usize)
-    }
-    */
-
     pub fn neighbours(&self) -> [Pos; 4] {
         [
             *self + (0, -1),
@@ -26,6 +16,12 @@ impl Pos {
             *self + (-1, 0),
             *self + (1, 0),
         ]
+    }
+}
+
+impl std::fmt::Debug for Pos {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
     }
 }
 
@@ -52,16 +48,9 @@ impl<T> std::ops::Index<Pos> for Vec<Vec<T>> {
     }
 }
 
-// mut index
 impl<T> std::ops::IndexMut<Pos> for Vec<Vec<T>> {
     fn index_mut(&mut self, pos: Pos) -> &mut Self::Output {
         &mut self[pos.y as usize][pos.x as usize]
-    }
-}
-
-impl std::fmt::Debug for Pos {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "({}, {})", self.x, self.y)
     }
 }
 
@@ -75,3 +64,27 @@ impl std::ops::Add<(i64, i64)> for Pos {
         }
     }
 }
+
+impl std::ops::Add<&Pos> for Pos {
+    type Output = Pos;
+
+    fn add(self, other: &Pos) -> Pos {
+        Pos {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
+
+impl std::ops::Sub<&Pos> for Pos {
+    type Output = Pos;
+
+    fn sub(self, other: &Pos) -> Pos {
+        Pos {
+            x: self.x - other.x,
+            y: self.y - other.y,
+        }
+    }
+}
+
+pub type Vec2 = Pos;
