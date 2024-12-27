@@ -1,3 +1,4 @@
+pub mod grid;
 pub mod math;
 
 pub use args::*;

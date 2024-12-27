@@ -404,7 +404,7 @@ pub fn run(input: Input, part: day::Part) -> Result<i64> {
         day::Part::One => warehouse.replay_moves(false),
         day::Part::Two => {
             let mut warehouse = warehouse.inflate();
-            warehouse.replay_moves(true)
+            warehouse.replay_moves(false)
         }
     } as i64;
 

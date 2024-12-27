@@ -1,4 +1,4 @@
-#[derive(Clone, Copy, Eq, Hash, PartialEq)]
+#[derive(Clone, Copy, Default, Eq, Hash, PartialEq)]
 pub struct Vec2 {
     pub x: i64,
     pub y: i64,
@@ -7,6 +7,14 @@ pub struct Vec2 {
 impl Vec2 {
     pub fn new(x: i64, y: i64) -> Self {
         Self { x, y }
+    }
+
+    pub fn manhattan_dist(&self, other: &Vec2) -> i64 {
+        (self.x - other.x).abs() + (self.y - other.y).abs()
+    }
+
+    pub fn manhattan_len(&self) -> i64 {
+        self.x.abs() + self.y.abs()
     }
 
     pub fn abs_vec(&self) -> Vec2 {
@@ -162,6 +170,21 @@ impl std::ops::Sub<&Vec2> for Vec2 {
             x: self.x - other.x,
             y: self.y - other.y,
         }
+    }
+}
+
+// impl partial eq for pair of T that implement partial eq
+impl<T> std::cmp::PartialEq<(T, T)> for Vec2
+where
+    T: std::cmp::PartialEq,
+    T: Into<i64>,
+    T: Copy,
+{
+    fn eq(&self, other: &(T, T)) -> bool {
+        let x: i64 = other.0.into();
+        let y: i64 = other.1.into();
+
+        self.x == x && self.y == y
     }
 }
 
