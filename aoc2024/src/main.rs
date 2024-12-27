@@ -4,6 +4,7 @@ mod input;
 mod util;
 
 mod day_0;
+mod day_1;
 
 use crate::error::{ArgumentError, Error, Result};
 use crate::input::Input;
@@ -20,6 +21,7 @@ fn run(day: u8, part: day::Part, input_file: Option<String>) -> Result<()> {
 
     match day {
         0 => day_0::run(input, output, part),
+        1 => day_1::run(input, output, part),
         _ => Err(Error::DayNotImplemented(day)),
     }
 }
