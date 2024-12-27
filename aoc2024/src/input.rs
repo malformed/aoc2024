@@ -45,4 +45,8 @@ impl Input {
         self.read_line_as_bytes_into(&mut buffer)?;
         Some(buffer)
     }
+
+    pub fn lines(self) -> std::io::Lines<std::io::BufReader<std::fs::File>> {
+        self.reader.lines()
+    }
 }
